@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 #[Fillable([
+    'admin_code',
     'name',
     'email',
     'password',
@@ -18,6 +20,7 @@ use Illuminate\Notifications\Notifiable;
     'phone',
     'institution',
     'status',
+    'avatar',
     'created_by',
 ])]
 #[Hidden([
@@ -40,5 +43,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+
+            if ($user->role === 'admin_user') {
+
+                $user->admin_code = 'ADM-' . strtoupper(Str::random(6));
+            }
+        });
     }
 }
