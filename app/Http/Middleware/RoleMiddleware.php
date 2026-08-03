@@ -11,13 +11,19 @@ class RoleMiddleware
 {
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        // Jika belum login
         if (!Auth::check()) {
-            return redirect('/login');
+            abort(403, 'Silakan login terlebih dahulu.');
         }
 
-        // Cek role
-        if (!in_array(Auth::user()->role, $roles)) {
+        $user = Auth::user();
+
+        // cek user punya role
+        if (!$user->role) {
+            abort(403, 'Anda belum memiliki role.');
+        }
+
+        // karena role berupa string
+        if (!in_array($user->role, $roles)) {
             abort(403, 'Anda tidak memiliki hak akses.');
         }
 

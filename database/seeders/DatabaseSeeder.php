@@ -12,7 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+
+            // Membuat Hak Akses
+            PermissionSeeder::class,
+
+            // Membuat Role dan hubungan Role Permission
+            RoleSeeder::class,
+
+            // Membuat akun Admin Utama
             AdminUtamaSeeder::class,
+
         ]);
     }
 }

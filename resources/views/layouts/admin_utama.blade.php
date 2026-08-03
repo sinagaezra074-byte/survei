@@ -110,7 +110,7 @@
 
 
 
-                <a href="#"
+                <a href="{{ route('hak-akses.index') }}"
                     class="block px-6 py-3 hover:bg-slate-700">
 
                     🔐 Hak Akses
