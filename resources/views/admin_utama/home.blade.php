@@ -1,4 +1,4 @@
-@extends('admin_utama.dashboard')
+@extends('layouts.admin_utama')
 
 
 @section('content')
