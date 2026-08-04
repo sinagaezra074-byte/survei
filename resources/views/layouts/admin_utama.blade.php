@@ -1,236 +1,241 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
 
-    <title>Admin Utama - MInfoIn</title>
+        <meta charset="UTF-8">
 
-    @vite(['resources/css/app.css','resources/js/app.js'])
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</head>
 
+        <title>
+            @yield('title', 'Admin Utama - MInfoIn')
+        </title>
 
-<body class="bg-gray-100">
 
+        @vite(['resources/css/app.css','resources/js/app.js'])
 
-    <div class="flex h-screen">
+    </head>
 
 
-        <aside class="w-72 bg-slate-800 text-white">
+    <body class="bg-gray-100">
 
 
-            <div class="p-6 border-b border-slate-700">
+        <div class="flex h-screen">
 
-                <h1 class="text-2xl font-bold">
-                    MInfoIn
-                </h1>
+            <aside class="w-72 bg-slate-800 text-white">
 
-                <p class="text-sm text-gray-300">
-                    Admin Utama
-                </p>
 
-            </div>
+                <div class="p-6 border-b border-slate-700">
 
+                    <h1 class="text-2xl font-bold">
+                        MInfoIn
+                    </h1>
 
+                    <p class="text-sm text-gray-300">
+                        Admin Utama
+                    </p>
 
-            <nav class="mt-5">
+                </div>
 
 
-                <a href="{{ route('admin.utama') }}"
-                    class="block px-6 py-3 hover:bg-slate-700">
 
-                    🏠 Dashboard
+                <nav class="mt-5">
 
-                </a>
 
+                    <a href="{{ route('admin.utama') }}"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
+                        🏠 Dashboard
 
-                <a href="{{ route('manajemen-admin-user.index') }}"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    👤 Manajemen Admin User
 
-                </a>
 
+                    <a href="{{ route('manajemen-admin-user.index') }}"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
+                        👤 Manajemen Admin User
 
-                <a href="#"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    📄 Template Survei
 
-                </a>
 
+                    <a href="#"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
+                        📄 Template Survei
 
-                <a href="#"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    💾 Backup Data
 
-                </a>
 
+                    <a href="#"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
+                        💾 Backup Data
 
-                <a href="#"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    🔄 Restore Data
 
-                </a>
 
+                    <a href="#"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
+                        🔄 Restore Data
 
-                <a href="#"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    📋 Data Survei
 
-                </a>
 
+                    <a href="#"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
+                        📋 Data Survei
 
-                <a href="#"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    ❓ Pertanyaan Survei
 
-                </a>
 
+                    <a href="#"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
+                        ❓ Pertanyaan Survei
 
-                <a href="#"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    📊 Respon Survei
 
-                </a>
 
+                    <a href="#"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
+                        📊 Respon Survei
 
-                <a href="{{ route('hak-akses.index') }}"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    🔐 Hak Akses
 
-                </a>
 
+                    <a href="{{ route('hak-akses.index') }}"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
+                        🔐 Hak Akses
 
-                <a href="#"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    📑 Laporan
 
-                </a>
 
-                <a href="{{ route('sidebars.index') }}"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    <a href="#"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
-                    📂 Manajemen Sidebar
+                        📑 Laporan
 
-                </a>
-                <hr class="my-3 border-slate-600">
+                    </a>
 
-                <p class="px-6 py-2 text-xs uppercase text-gray-400">
-                    Menu Dinamis
-                </p>
+                    <a href="{{ route('sidebars.index') }}"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
-                @foreach($dynamicSidebars as $menu)
+                        📂 Manajemen Sidebar
 
-                <a href="{{ route('dynamic-form.index', $menu->id) }}"
-                    class="block px-6 py-3 hover:bg-slate-700">
-                    📁 {{ $menu->nama_menu }}
+                    </a>
+                    <hr class="my-3 border-slate-600">
 
-                </a>
+                    <p class="px-6 py-2 text-xs uppercase text-gray-400">
+                        Menu Dinamis
+                    </p>
 
-                @endforeach
+                    @foreach($dynamicSidebars ?? [] as $menu)
 
+                    <a href="{{ route('dynamic-form.index', $menu->id) }}"
+                        class="block px-6 py-3 hover:bg-slate-700">
+                        📁 {{ $menu->nama_menu }}
 
-                <a href="#"
-                    class="block px-6 py-3 hover:bg-slate-700">
+                    </a>
 
-                    ⚙ Pengaturan
+                    @endforeach
 
-                </a>
 
+                    <a href="#"
+                        class="block px-6 py-3 hover:bg-slate-700">
 
-            </nav>
+                        ⚙ Pengaturan
 
+                    </a>
 
-        </aside>
 
+                </nav>
 
 
+            </aside>
 
 
-        <main class="flex-1">
 
 
-            <div class="bg-white shadow px-8 py-5 flex justify-between">
 
+            <main class="flex-1">
 
-                <h2 class="text-2xl font-bold">
 
-                    Dashboard Admin Utama
+                <div class="bg-white shadow px-8 py-5 flex justify-between">
 
-                </h2>
 
+                    <h2 class="text-2xl font-bold">
 
+                        Dashboard Admin Utama
 
+                    </h2>
 
-                <div class="flex items-center gap-4">
 
 
-                    <span>
-                        {{ Auth::user()->name }}
-                    </span>
 
+                    <div class="flex items-center gap-4">
 
 
-                    <form method="POST" action="{{ route('logout') }}">
+                        <span>
+                            {{ Auth::user()->name }}
+                        </span>
 
-                        @csrf
 
-                        <button
-                            class="bg-red-500 text-white px-4 py-2 rounded">
 
-                            Logout
+                        <form method="POST" action="{{ route('logout') }}">
 
-                        </button>
+                            @csrf
 
-                    </form>
+                            <button
+                                class="bg-red-500 text-white px-4 py-2 rounded">
+
+                                Logout
+
+                            </button>
+
+                        </form>
+
+
+                    </div>
 
 
                 </div>
 
 
-            </div>
+
+
+
+                <div class="p-8">
+
+
+                    @yield('content')
+
+
+                </div>
 
 
 
 
-
-            <div class="p-8">
-
-
-                @yield('content')
+            </main>
 
 
-            </div>
+        </div>
 
 
+    </body>
 
 
-        </main>
-
-
-    </div>
-
-
-</body>
-
-
-</html>
+    </html>
