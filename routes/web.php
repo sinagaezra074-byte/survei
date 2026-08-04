@@ -68,9 +68,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin_utama'])->group(function () {
 
     Route::get('/admin-utama', function () {
-        return view('admin_utama.home');
+        return view('layouts.admin_utama');
     })->name('admin.utama');
-
     Route::resource('sidebars', SidebarController::class);
 
     Route::get('/sidebars/{sidebar}/fields', [SidebarFieldController::class, 'index'])

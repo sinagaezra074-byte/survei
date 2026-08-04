@@ -1,17 +1,27 @@
 @extends('layouts.admin_utama')
 
 
+@section('title')
+Dashboard Admin Utama - MInfoIn
+@endsection
+
+
+@section('header')
+Dashboard Admin Utama
+@endsection
+
+
 @section('content')
 
-<div class="bg-white rounded-lg shadow p-6">
 
-    <h3 class="text-xl font-semibold">
-        Selamat Datang di Dashboard Admin Utama
-    </h3>
+<div class="bg-white p-6 rounded shadow">
 
+    <h1 class="text-3xl font-bold">
+        Selamat Datang Admin Utama
+    </h1>
 
-    <p class="mt-2 text-gray-600">
-        Silakan pilih menu pada sidebar untuk mulai mengelola sistem survei MInfoIn.
+    <p class="mt-3 text-gray-600">
+        Kelola seluruh sistem MInfoIn dari halaman ini.
     </p>
 
 </div>

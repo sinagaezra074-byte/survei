@@ -2,10 +2,16 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Utama - MInfoIn</title>
+
+    <title>
+        Admin Utama - MInfoIn
+    </title>
+
 
     @vite(['resources/css/app.css','resources/js/app.js'])
 
@@ -15,9 +21,10 @@
 <body class="bg-gray-100">
 
 
-    <div class="flex h-screen">
+    <div class="flex min-h-screen">
 
 
+        {{-- SIDEBAR --}}
         <aside class="w-72 bg-slate-800 text-white">
 
 
@@ -26,6 +33,7 @@
                 <h1 class="text-2xl font-bold">
                     MInfoIn
                 </h1>
+
 
                 <p class="text-sm text-gray-300">
                     Admin Utama
@@ -145,10 +153,13 @@
 
 
 
+        {{-- KONTEN UTAMA --}}
         <main class="flex-1">
 
 
-            <div class="bg-white shadow px-8 py-5 flex justify-between">
+
+            {{-- HEADER --}}
+            <div class="bg-white shadow px-8 py-5 flex justify-between items-center">
 
 
                 <h2 class="text-2xl font-bold">
@@ -159,12 +170,13 @@
 
 
 
-
                 <div class="flex items-center gap-4">
 
 
-                    <span>
+                    <span class="font-medium">
+
                         {{ Auth::user()->name }}
+
                     </span>
 
 
@@ -173,12 +185,14 @@
 
                         @csrf
 
+
                         <button
-                            class="bg-red-500 text-white px-4 py-2 rounded">
+                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
 
                             Logout
 
                         </button>
+
 
                     </form>
 
@@ -192,14 +206,32 @@
 
 
 
+            {{-- ISI DASHBOARD --}}
             <div class="p-8">
 
 
-                @yield('content')
+                <div class="bg-white rounded-lg shadow p-6">
+
+
+                    <h1 class="text-3xl font-bold">
+
+                        Selamat Datang Admin Utama
+
+                    </h1>
+
+
+                    <p class="mt-3 text-gray-600">
+
+                        Kelola seluruh sistem MInfoIn melalui menu sidebar.
+
+                    </p>
+
+
+                </div>
+
 
 
             </div>
-
 
 
 
@@ -210,6 +242,5 @@
 
 
 </body>
-
 
 </html>
