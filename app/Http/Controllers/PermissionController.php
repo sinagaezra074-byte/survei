@@ -6,27 +6,66 @@ use App\Models\Permission;
 use App\Models\PermissionSidebar;
 use App\Models\PermissionAction;
 use Illuminate\Http\Request;
+use App\Models\Sidebar;
 use Illuminate\Support\Facades\DB;
 
 class PermissionController extends Controller
 {
-    /**
-     * Daftar menu sistem
-     */
-    private array $menus = [
-        'Dashboard',
-        'Manajemen Admin User',
-        'Template Survei',
-        'Backup Data',
-        'Restore Data',
-        'Data Survei',
-        'Pertanyaan Survei',
-        'Respon Survei',
-        'Hak Akses',
-        'Laporan',
-        'Pengaturan',
-    ];
+    private function menus()
+    {
+        $defaultMenus = collect([
+            (object)[
+                'id' => -1,
+                'nama_menu' => 'Dashboard'
+            ],
+            (object)[
+                'id' => -2,
+                'nama_menu' => 'Manajemen Admin User'
+            ],
+            (object)[
+                'id' => -3,
+                'nama_menu' => 'Template Survei'
+            ],
+            (object)[
+                'id' => -4,
+                'nama_menu' => 'Backup Data'
+            ],
+            (object)[
+                'id' => -5,
+                'nama_menu' => 'Restore Data'
+            ],
+            (object)[
+                'id' => -6,
+                'nama_menu' => 'Data Survei'
+            ],
+            (object)[
+                'id' => -7,
+                'nama_menu' => 'Pertanyaan Survei'
+            ],
+            (object)[
+                'id' => -8,
+                'nama_menu' => 'Respon Survei'
+            ],
+            (object)[
+                'id' => -9,
+                'nama_menu' => 'Hak Akses'
+            ],
+            (object)[
+                'id' => -10,
+                'nama_menu' => 'Laporan'
+            ],
+            (object)[
+                'id' => -11,
+                'nama_menu' => 'Pengaturan'
+            ],
+        ]);
 
+        $dynamicMenus = Sidebar::where('status', 1)
+            ->orderBy('urutan')
+            ->get(['id', 'nama_menu']);
+
+        return $defaultMenus->merge($dynamicMenus);
+    }
     /**
      * Menampilkan daftar Hak Akses
      */
@@ -44,9 +83,12 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('admin_utama.hak_akses.create', [
-            'menus' => $this->menus,
-        ]);
+        $menus = $this->menus();
+
+        return view(
+            'admin_utama.hak_akses.create',
+            compact('menus')
+        );
     }
 
     /**
@@ -76,12 +118,12 @@ class PermissionController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            foreach ($this->menus as $menu) {
+            foreach ($this->menus() as $menu) {
 
                 PermissionSidebar::create([
                     'permission_id' => $permission->id,
-                    'sidebar_name' => $menu,
-                    'is_allowed' => in_array($menu, $request->sidebars ?? []),
+                    'sidebar_name' => $menu->nama_menu,
+                    'is_allowed' => in_array($menu->id, $request->sidebars ?? []),
                 ]);
             }
 
@@ -91,13 +133,13 @@ class PermissionController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            foreach ($this->menus as $menu) {
+            foreach ($this->menus() as $menu) {
 
-                $action = $request->actions[$menu] ?? [];
+                $action = $request->actions[$menu->id] ?? [];
 
                 PermissionAction::create([
                     'permission_id' => $permission->id,
-                    'menu_name' => $menu,
+                    'menu_name' => $menu->nama_menu,
                     'can_view' => isset($action['view']),
                     'can_create' => isset($action['create']),
                     'can_edit' => isset($action['edit']),
@@ -141,13 +183,18 @@ class PermissionController extends Controller
     {
         $hak_akses->load([
             'sidebars',
-            'actions',
+            'actions'
         ]);
 
-        return view('admin_utama.hak_akses.edit', [
-            'permission' => $hak_akses,
-            'menus' => $this->menus,
-        ]);
+        $menus = $this->menus();
+
+        return view(
+            'admin_utama.hak_akses.edit',
+            [
+                'permission' => $hak_akses,
+                'menus' => $menus
+            ]
+        );
     }
 
     /**
@@ -171,29 +218,44 @@ class PermissionController extends Controller
                 'is_active' => $request->is_active,
             ]);
 
+            /*
+        |--------------------------------------------------------------------------
+        | Update Sidebar
+        |--------------------------------------------------------------------------
+        */
 
+            PermissionSidebar::where(
+                'permission_id',
+                $hak_akses->id
+            )->delete();
 
-            PermissionSidebar::where('permission_id', $hak_akses->id)->delete();
-
-            foreach ($this->menus as $menu) {
+            foreach ($this->menus() as $menu) {
 
                 PermissionSidebar::create([
                     'permission_id' => $hak_akses->id,
-                    'sidebar_name' => $menu,
-                    'is_allowed' => in_array($menu, $request->sidebars ?? []),
+                    'sidebar_name' => $menu->nama_menu,
+                    'is_allowed' => in_array($menu->id, $request->sidebars ?? []),
                 ]);
             }
 
+            /*
+        |--------------------------------------------------------------------------
+        | Update CRUD
+        |--------------------------------------------------------------------------
+        */
 
-            PermissionAction::where('permission_id', $hak_akses->id)->delete();
+            PermissionAction::where(
+                'permission_id',
+                $hak_akses->id
+            )->delete();
 
-            foreach ($this->menus as $menu) {
+            foreach ($this->menus() as $menu) {
 
-                $action = $request->actions[$menu] ?? [];
+                $action = $request->actions[$menu->id] ?? [];
 
                 PermissionAction::create([
                     'permission_id' => $hak_akses->id,
-                    'menu_name' => $menu,
+                    'menu_name' => $menu->nama_menu,
                     'can_view' => isset($action['view']),
                     'can_create' => isset($action['create']),
                     'can_edit' => isset($action['edit']),
@@ -215,7 +277,6 @@ class PermissionController extends Controller
                 ->with('error', $e->getMessage());
         }
     }
-
     /**
      * Hapus Hak Akses
      */

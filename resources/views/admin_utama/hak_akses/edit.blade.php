@@ -101,13 +101,17 @@
                             <input
                                 type="checkbox"
                                 name="sidebars[]"
-                                value="{{ $menu }}"
-                                {{ $permission->sidebars
-                                        ->where('sidebar_name', $menu)
-                                        ->where('is_allowed', true)
-                                        ->count() ? 'checked' : '' }}>
+                                value="{{ $menu->id }}"
+                                {{
+            $permission->sidebars
+                ->where('sidebar_name', $menu->nama_menu)
+                ->where('is_allowed', true)
+                ->count()
+                ? 'checked'
+                : ''
+        }}>
 
-                            {{ $menu }}
+                            {{ $menu->nama_menu }}
 
                         </label>
 
@@ -158,43 +162,44 @@
 
                             <tbody>
 
-                                @foreach($menus as $menu)
-
                                 @php
-                                $action = $permission->actions->firstWhere('menu_name', $menu);
+                                $action = $permission->actions->firstWhere(
+                                'menu_name',
+                                $menu->nama_menu
+                                );
                                 @endphp
 
                                 <tr>
 
                                     <td class="border px-3 py-2">
-                                        {{ $menu }}
+                                        {{ $menu->nama_menu }}
                                     </td>
 
                                     <td class="border text-center">
                                         <input
                                             type="checkbox"
-                                            name="actions[{{ $menu }}][view]"
+                                            name="actions[{{ $menu->id }}][view]"
                                             {{ optional($action)->can_view ? 'checked' : '' }}>
                                     </td>
 
                                     <td class="border text-center">
                                         <input
                                             type="checkbox"
-                                            name="actions[{{ $menu }}][create]"
+                                            name="actions[{{ $menu->id }}][create]"
                                             {{ optional($action)->can_create ? 'checked' : '' }}>
                                     </td>
 
                                     <td class="border text-center">
                                         <input
                                             type="checkbox"
-                                            name="actions[{{ $menu }}][edit]"
+                                            name="actions[{{ $menu->id }}][edit]"
                                             {{ optional($action)->can_edit ? 'checked' : '' }}>
                                     </td>
 
                                     <td class="border text-center">
                                         <input
                                             type="checkbox"
-                                            name="actions[{{ $menu }}][delete]"
+                                            name="actions[{{ $menu->id }}][delete]"
                                             {{ optional($action)->can_delete ? 'checked' : '' }}>
                                     </td>
 

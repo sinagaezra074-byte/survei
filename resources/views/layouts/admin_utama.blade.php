@@ -126,6 +126,27 @@
 
                 </a>
 
+                <a href="{{ route('sidebars.index') }}"
+                    class="block px-6 py-3 hover:bg-slate-700">
+
+                    📂 Manajemen Sidebar
+
+                </a>
+                <hr class="my-3 border-slate-600">
+
+                <p class="px-6 py-2 text-xs uppercase text-gray-400">
+                    Menu Dinamis
+                </p>
+
+                @foreach($dynamicSidebars as $menu)
+
+                <a href="{{ route('dynamic-form.index', $menu->id) }}"
+                    class="block px-6 py-3 hover:bg-slate-700">
+                    📁 {{ $menu->nama_menu }}
+
+                </a>
+
+                @endforeach
 
 
                 <a href="#"

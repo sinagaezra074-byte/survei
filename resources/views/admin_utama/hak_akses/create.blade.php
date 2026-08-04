@@ -124,13 +124,9 @@
                             <input
                                 type="checkbox"
                                 name="sidebars[]"
-                                value="{{ $menu }}">
+                                value="{{ $menu->nama_menu }}">
 
-                            <span>
-
-                                {{ $menu }}
-
-                            </span>
+                            {{ $menu->nama_menu }}
 
                         </label>
 
@@ -198,41 +194,31 @@
                                 <tr>
 
                                     <td class="border px-3 py-2">
-
-                                        {{ $menu }}
-
+                                        {{ $menu->nama_menu }}
                                     </td>
 
                                     <td class="border text-center">
-
                                         <input
                                             type="checkbox"
-                                            name="actions[{{ $menu }}][view]">
-
+                                            name="actions[{{ $menu->id }}][view]">
                                     </td>
 
                                     <td class="border text-center">
-
                                         <input
                                             type="checkbox"
-                                            name="actions[{{ $menu }}][create]">
-
+                                            name="actions[{{ $menu->id }}][create]">
                                     </td>
 
                                     <td class="border text-center">
-
                                         <input
                                             type="checkbox"
-                                            name="actions[{{ $menu }}][edit]">
-
+                                            name="actions[{{ $menu->id }}][edit]">
                                     </td>
 
                                     <td class="border text-center">
-
                                         <input
                                             type="checkbox"
-                                            name="actions[{{ $menu }}][delete]">
-
+                                            name="actions[{{ $menu->id }}][delete]">
                                     </td>
 
                                 </tr>

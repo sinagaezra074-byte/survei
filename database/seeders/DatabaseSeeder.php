@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
 
+
+
             // Membuat Hak Akses
             PermissionSeeder::class,
 
@@ -21,6 +23,12 @@ class DatabaseSeeder extends Seeder
 
             // Membuat akun Admin Utama
             AdminUtamaSeeder::class,
+            // bagian sedder
+            SidebarSeeder::class,
+
+
+
+
 
         ]);
     }

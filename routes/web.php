@@ -8,6 +8,9 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SidebarController;
+use App\Http\Controllers\SidebarFieldController;
+use App\Http\Controllers\DynamicFormController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -67,6 +70,29 @@ Route::middleware(['auth', 'role:admin_utama'])->group(function () {
     Route::get('/admin-utama', function () {
         return view('admin_utama.home');
     })->name('admin.utama');
+
+    Route::resource('sidebars', SidebarController::class);
+
+    Route::get('/sidebars/{sidebar}/fields', [SidebarFieldController::class, 'index'])
+        ->name('sidebar-fields.index');
+
+    Route::get('/sidebars/{sidebar}/fields/create', [SidebarFieldController::class, 'create'])
+        ->name('sidebar-fields.create');
+
+    Route::post('/sidebars/{sidebar}/fields', [SidebarFieldController::class, 'store'])
+        ->name('sidebar-fields.store');
+
+    Route::get('/sidebar-fields/{field}', [SidebarFieldController::class, 'show'])
+        ->name('sidebar-fields.show');
+
+    Route::get('/sidebar-fields/{field}/edit', [SidebarFieldController::class, 'edit'])
+        ->name('sidebar-fields.edit');
+
+    Route::put('/sidebar-fields/{field}', [SidebarFieldController::class, 'update'])
+        ->name('sidebar-fields.update');
+
+    Route::delete('/sidebar-fields/{field}', [SidebarFieldController::class, 'destroy'])
+        ->name('sidebar-fields.destroy');
 
     /*
     |--------------------------------------------------------------------------
@@ -131,10 +157,13 @@ Route::middleware(['auth', 'role:user'])->group(function () {
         ->name('user.dashboard');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Authentication
-|--------------------------------------------------------------------------
-*/
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/menu/{sidebar}', [DynamicFormController::class, 'index'])
+        ->name('dynamic-form.index');
+
+    Route::post('/menu/{sidebar}', [DynamicFormController::class, 'store'])
+        ->name('dynamic-form.store');
+});
 
 require __DIR__ . '/auth.php';
