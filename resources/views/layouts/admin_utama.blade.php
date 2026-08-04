@@ -7,9 +7,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <title>
-        Admin Utama - MInfoIn
+        @yield('title', 'Admin Utama - MInfoIn')
     </title>
 
 
@@ -25,7 +24,7 @@
 
 
         {{-- SIDEBAR --}}
-        <aside class="w-72 bg-slate-800 text-white">
+        <aside class="w-72 bg-slate-800 text-white flex-shrink-0">
 
 
             <div class="p-6 border-b border-slate-700">
@@ -33,7 +32,6 @@
                 <h1 class="text-2xl font-bold">
                     MInfoIn
                 </h1>
-
 
                 <p class="text-sm text-gray-300">
                     Admin Utama
@@ -136,6 +134,43 @@
 
 
 
+                <a href="{{ route('sidebars.index') }}"
+                    class="block px-6 py-3 hover:bg-slate-700">
+
+                    📂 Manajemen Sidebar
+
+                </a>
+
+
+
+                <hr class="my-3 border-slate-600">
+
+
+
+                <p class="px-6 py-2 text-xs uppercase text-gray-400">
+                    Menu Dinamis
+                </p>
+
+
+
+                @isset($dynamicSidebars)
+
+                @foreach($dynamicSidebars as $menu)
+
+                <a href="{{ route('dynamic-form.index',$menu->id) }}"
+                    class="block px-6 py-3 hover:bg-slate-700">
+
+                    📁 {{ $menu->nama_menu }}
+
+                </a>
+
+                @endforeach
+
+                @endisset
+
+
+
+
                 <a href="#"
                     class="block px-6 py-3 hover:bg-slate-700">
 
@@ -153,19 +188,17 @@
 
 
 
-        {{-- KONTEN UTAMA --}}
+
+        {{-- CONTENT --}}
+
         <main class="flex-1">
 
 
-
-            {{-- HEADER --}}
-            <div class="bg-white shadow px-8 py-5 flex justify-between items-center">
+            <header class="bg-white shadow px-8 py-5 flex justify-between items-center">
 
 
                 <h2 class="text-2xl font-bold">
-
-                    Dashboard Admin Utama
-
+                    @yield('header','Dashboard Admin Utama')
                 </h2>
 
 
@@ -173,7 +206,7 @@
                 <div class="flex items-center gap-4">
 
 
-                    <span class="font-medium">
+                    <span class="font-semibold">
 
                         {{ Auth::user()->name }}
 
@@ -200,45 +233,28 @@
                 </div>
 
 
-            </div>
+            </header>
 
 
 
 
 
-            {{-- ISI DASHBOARD --}}
-            <div class="p-8">
+            <section class="p-8">
 
 
-                <div class="bg-white rounded-lg shadow p-6">
+                @yield('content')
 
 
-                    <h1 class="text-3xl font-bold">
-
-                        Selamat Datang Admin Utama
-
-                    </h1>
-
-
-                    <p class="mt-3 text-gray-600">
-
-                        Kelola seluruh sistem MInfoIn melalui menu sidebar.
-
-                    </p>
-
-
-                </div>
-
-
-
-            </div>
+            </section>
 
 
 
         </main>
 
 
+
     </div>
+
 
 
 </body>
