@@ -13,7 +13,7 @@ use App\Http\Controllers\SidebarFieldController;
 use App\Http\Controllers\DynamicFormController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 /*
@@ -70,6 +70,7 @@ Route::middleware(['auth', 'role:admin_utama'])->group(function () {
     Route::get('/admin-utama', function () {
         return view('layouts.admin_utama');
     })->name('admin.utama');
+
     Route::resource('sidebars', SidebarController::class);
 
     Route::get('/sidebars/{sidebar}/fields', [SidebarFieldController::class, 'index'])
